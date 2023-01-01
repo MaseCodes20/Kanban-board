@@ -2,12 +2,13 @@ import useColumnDrop from "../hooks/useColumnDrop";
 import useColumnTasks from "../hooks/useColumnTasks";
 import { ColumnType } from "../utils/enums";
 import Task from "./Task";
+import { HiPlus } from "react-icons/hi2";
 
 const ColumnColerScheme: Record<ColumnType, string> = {
-  Todo: "bg-[#737373]",
-  "In Progress": "bg-[#215BA6]",
-  Blocked: "bg-[#D90D1E]",
-  Completed: "bg-[#217D3B]",
+  Todo: "bg-gray-600",
+  "In Progress": "bg-blue-600",
+  Blocked: "bg-red-600",
+  Completed: "bg-green-600",
 };
 
 function Column({ column }: { column: ColumnType }) {
@@ -47,7 +48,7 @@ function Column({ column }: { column: ColumnType }) {
         aria-label="add-task"
         onClick={addEmptyTask}
       >
-        +
+        <HiPlus className="mx-auto" />
       </button>
 
       <div

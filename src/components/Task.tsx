@@ -36,7 +36,7 @@ function Task({
   return (
     <div
       ref={ref}
-      className={`relative rounded-md w-[200px] shadow-xl pl-3 pr-7 pt-3 pb-1 cursor-grab bg-purple- ${
+      className={`relative rounded-md w-[200px] shadow-xl pl-3 pr-7 pt-3 pb-1 cursor-grab ${
         task.color
       } ${isDragging && "opacity-50"}`}
       onClick={() => console.log(task)}

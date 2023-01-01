@@ -23,7 +23,7 @@ function useColumnTasks(column: ColumnType) {
       const newColumnTask: TaskModel = {
         id: crypto.randomUUID(),
         title: `New ${column} task`,
-        color: pickRandomColor("-300"),
+        color: pickRandomColor(),
         column,
       };
 
