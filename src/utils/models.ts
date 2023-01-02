@@ -12,3 +12,9 @@ export type DragItem = {
   id: TaskModel["id"];
   from: ColumnType;
 };
+export type AllTasks = {
+  Todo: TaskModel[];
+  "In Progress": TaskModel[];
+  Blocked: TaskModel[];
+  Completed: TaskModel[];
+};

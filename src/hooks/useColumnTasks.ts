@@ -1,10 +1,14 @@
 import { useCallback } from "react";
+import {
+  addTask,
+  removeTask,
+  taskDrop,
+  taskSwap,
+  taskUpdate,
+} from "../utils/businessLogic";
 import { ColumnType } from "../utils/enums";
-import { pickRandomColor, swap } from "../utils/helpers";
 import { TaskModel } from "../utils/models";
 import useTaskCollection from "./useTaskCollection";
-
-const MAX_TASK_PER_COLUMN = 100;
 
 function useColumnTasks(column: ColumnType) {
   const [tasks, setTasks] = useTaskCollection();
@@ -12,42 +16,14 @@ function useColumnTasks(column: ColumnType) {
   const addEmptyTask = useCallback(() => {
     console.log(`Adding new empty task to ${column} column`);
 
-    setTasks((alltasks) => {
-      const columnTasks = alltasks[column];
-
-      if (columnTasks.length > MAX_TASK_PER_COLUMN) {
-        console.log("Too many task!");
-        return alltasks;
-      }
-
-      const newColumnTask: TaskModel = {
-        id: crypto.randomUUID(),
-        title: `New ${column} task`,
-        color: pickRandomColor(),
-        column,
-      };
-
-      return {
-        ...alltasks,
-        [column]: [newColumnTask, ...columnTasks],
-      };
-    });
+    setTasks((allTasks) => addTask(allTasks, column));
   }, [column, setTasks]);
 
   const updateTask = useCallback(
     (id: TaskModel["id"], updatedTask: Omit<Partial<TaskModel>, "id">) => {
       console.log(`Updating task ${id} with ${JSON.stringify(updatedTask)}`);
 
-      setTasks((allTasks) => {
-        const columnTasks = allTasks[column];
-
-        return {
-          ...allTasks,
-          [column]: columnTasks.map((task) =>
-            task.id === id ? { ...task, ...updatedTask } : task
-          ),
-        };
-      });
+      setTasks((allTasks) => taskUpdate(id, allTasks, column, updatedTask));
     },
     [column, setTasks]
   );
@@ -56,36 +32,14 @@ function useColumnTasks(column: ColumnType) {
     (id: TaskModel["id"]) => {
       console.log(`Removing task ${id}..`);
 
-      setTasks((alltasks) => {
-        const columnTasks = alltasks[column];
-
-        return {
-          ...alltasks,
-          [column]: columnTasks.filter((task) => task.id !== id),
-        };
-      });
+      setTasks((allTasks) => removeTask(id, allTasks, column));
     },
     [column, setTasks]
   );
 
   const dropTaskFrom = useCallback(
     (from: ColumnType, id: TaskModel["id"]) => {
-      setTasks((allTasks) => {
-        const fromColumnTasks = allTasks[from];
-        const toColumnTasks = allTasks[column];
-        const movingTask = fromColumnTasks.find((task) => task.id === id);
-
-        if (!movingTask) {
-          return allTasks;
-        }
-
-        // remove the task from the original column and copy it within the destination column
-        return {
-          ...allTasks,
-          [from]: fromColumnTasks.filter((task) => task.id !== id),
-          [column]: [{ ...movingTask, column }, ...toColumnTasks],
-        };
-      });
+      setTasks((allTasks) => taskDrop(id, allTasks, column, from));
     },
     [column, setTasks]
   );
@@ -94,14 +48,7 @@ function useColumnTasks(column: ColumnType) {
     (i: number, j: number) => {
       console.log(`Swapping task ${i} with ${j} in ${column} column`);
 
-      setTasks((allTasks) => {
-        const columnTasks = allTasks[column];
-
-        return {
-          ...allTasks,
-          [column]: swap(columnTasks, i, j),
-        };
-      });
+      setTasks((allTasks) => taskSwap(allTasks, column, i, j));
     },
     [column, setTasks]
   );

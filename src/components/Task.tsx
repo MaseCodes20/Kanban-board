@@ -39,7 +39,6 @@ function Task({
       className={`relative rounded-md w-[200px] shadow-xl pl-3 pr-7 pt-3 pb-1 cursor-grab ${
         task.color
       } ${isDragging && "opacity-50"}`}
-      onClick={() => console.log(task)}
     >
       <button
         className="absolute top-0 right-0 m-2 z-50"
