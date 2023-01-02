@@ -4,7 +4,7 @@ import { ColumnType } from "../utils/enums";
 import Task from "./Task";
 import { HiPlus } from "react-icons/hi2";
 
-const ColumnColerScheme: Record<ColumnType, string> = {
+const ColumnColorScheme: Record<ColumnType, string> = {
   Todo: "bg-gray-600",
   "In Progress": "bg-blue-600",
   Blocked: "bg-red-600",
@@ -38,13 +38,13 @@ function Column({ column }: { column: ColumnType }) {
     <div className="">
       <div>
         <h2
-          className={`p-2 rounded-lg w-fit text-white font-semibold ${ColumnColerScheme[column]}`}
+          className={`p-2 rounded-lg w-fit text-white font-semibold ${ColumnColorScheme[column]}`}
         >
           {column}
         </h2>
       </div>
       <button
-        className="w-full py-2 bg-gray-200 my-3 rounded-lg"
+        className="w-full py-2 bg-gray-200/40 my-3 rounded-lg"
         aria-label="add-task"
         onClick={addEmptyTask}
       >
@@ -53,7 +53,7 @@ function Column({ column }: { column: ColumnType }) {
 
       <div
         ref={dropRef}
-        className={`flex md:flex-col items-center h-[300px] md:h-[600px] p-4 gap-4 rounded-lg overflow-auto bg-gray-200 ${
+        className={`flex md:flex-col items-center h-[300px] md:h-[600px] p-4 gap-4 rounded-lg overflow-auto bg-gray-200/40 ${
           isOver && "opacity-80"
         }`}
       >

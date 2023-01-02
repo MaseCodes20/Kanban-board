@@ -2,11 +2,13 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "./App.css";
 import Column from "./components/Column";
+import DarkModeButton from "./components/DarkModeButton";
 import { ColumnType } from "./utils/enums";
 
 function App() {
   return (
-    <div className="">
+    <>
+      <DarkModeButton />
       <h1 className="text-3xl font-bold text-center">Kanban Board</h1>
 
       <div className=" px-4 py-10">
@@ -19,7 +21,7 @@ function App() {
           </div>
         </DndProvider>
       </div>
-    </div>
+    </>
   );
 }
 
