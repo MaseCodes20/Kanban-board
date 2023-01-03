@@ -81,7 +81,7 @@ export const taskSwap = (
   column: ColumnType,
   i: number,
   j: number
-) => {
+): AllTasks => {
   const columnTasks = allTasks[column];
 
   return {

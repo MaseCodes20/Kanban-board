@@ -35,7 +35,7 @@ function Column({ column }: { column: ColumnType }) {
   ));
 
   return (
-    <div className="">
+    <div>
       <div>
         <h2
           className={`p-2 rounded-lg w-fit text-white font-semibold ${ColumnColorScheme[column]}`}

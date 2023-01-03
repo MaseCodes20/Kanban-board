@@ -14,15 +14,11 @@ function useColumnTasks(column: ColumnType) {
   const [tasks, setTasks] = useTaskCollection();
 
   const addEmptyTask = useCallback(() => {
-    console.log(`Adding new empty task to ${column} column`);
-
     setTasks((allTasks) => addTask(allTasks, column));
   }, [column, setTasks]);
 
   const updateTask = useCallback(
     (id: TaskModel["id"], updatedTask: Omit<Partial<TaskModel>, "id">) => {
-      console.log(`Updating task ${id} with ${JSON.stringify(updatedTask)}`);
-
       setTasks((allTasks) => taskUpdate(id, allTasks, column, updatedTask));
     },
     [column, setTasks]
@@ -30,8 +26,6 @@ function useColumnTasks(column: ColumnType) {
 
   const deleteTask = useCallback(
     (id: TaskModel["id"]) => {
-      console.log(`Removing task ${id}..`);
-
       setTasks((allTasks) => removeTask(id, allTasks, column));
     },
     [column, setTasks]
@@ -46,8 +40,6 @@ function useColumnTasks(column: ColumnType) {
 
   const swapTasks = useCallback(
     (i: number, j: number) => {
-      console.log(`Swapping task ${i} with ${j} in ${column} column`);
-
       setTasks((allTasks) => taskSwap(allTasks, column, i, j));
     },
     [column, setTasks]
